@@ -24,6 +24,7 @@ public enum RxRealmError: Error {
 
  The methods of essence in this protocol are `asObservable(...)`, which allow for observing for changes on Realm's collections.
  */
+
 public protocol NotificationEmitter {
   associatedtype ElementType: RealmCollectionValue
 
@@ -82,6 +83,8 @@ extension LinkingObjects: NotificationEmitter {
     return Array(self)
   }
 }
+
+extension NotificationEmitter { public func observe(on queue: DispatchQueue?, _ block: @escaping (RealmCollectionChange<Self>) -> Void) -> NotificationToken { NotificationToken() } }
 
 /**
  `RealmChangeset` is a struct that contains the data about a single realm change set.
